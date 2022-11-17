@@ -1,7 +1,7 @@
 const baseUrl = import.meta.env.VITE_API_URL;
 
 
-function getDepartamentos() {
+function getSellos() {
 
     
     let myHeaders = {
@@ -15,7 +15,7 @@ function getDepartamentos() {
         headers: myHeaders
     };
 
-    return fetch(`${baseUrl}servicio/departamento`, requestOp )
+    return fetch(`${baseUrl}servicio/sello`, requestOp )
         .then(res => {
             if (res.status != 200 && res.status != 401) throw new Error('Response is NOT ok')
             if (res.status == 401) {
@@ -28,5 +28,5 @@ function getDepartamentos() {
 
 }
 
-export default getDepartamentos
+export default getSellos
 
