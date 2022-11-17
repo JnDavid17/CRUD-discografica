@@ -1,0 +1,24 @@
+* {
+  margin: 0px;
+}
+
+:root {
+  --primary-color: #eff5f5;
+  --secondary-color: #497174;
+  --terciary-color: #d6e4e5;
+  --fourth-color: #eb6440;
+}
+
+html {
+  overflow: hidden;
+  background: var(--primary-color);
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  column-gap: 40px;
+  align-items: center;
+}
