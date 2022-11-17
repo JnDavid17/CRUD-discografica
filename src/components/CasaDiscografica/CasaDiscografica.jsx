@@ -2,13 +2,16 @@ import React, { useEffect, useState, useContext } from "react";
 import "./CasaDiscografica.css";
 import getDiscograficas from "../../services/getServices/getCasas";
 import pencil from "../../assets/pencil-svgrepo-com.svg";
-import ModalComponent from "..//ModalDelete/ModalDelete";
+import ModalDelete from "..//ModalDelete/ModalDelete";
+import ModalForms from "..//ModalForms/ModalForms";
+
 import { UpdateViewContext } from "../../context/UpdateViewContext";
 
 function CasaDiscografica() {
   const [discograficas, setDiscograficas] = useState([]);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalForms, setModalForms] = useState(false);
+  const [typeAction, setTypeAction] = useState("");
 
   const [lastCasa, setLastCasa] = useState([]);
   const { updateView, setUpdateView } = useContext(UpdateViewContext);
@@ -28,9 +31,10 @@ function CasaDiscografica() {
     setLastCasa(casa);
   };
 
-  const showForm = (casa) => {
+  const showForm = (casa, type) => {
     setModalForms(true)
     setLastCasa(casa)
+    setTypeAction(type)
   } 
 
   const renderRows = () => {
@@ -43,7 +47,7 @@ function CasaDiscografica() {
           <div className="column">{casa.presidente}</div>
           <div className="column">{casa.createAt}</div>
           <div className="column">
-            <img src={pencil} alt="" onClick={() => showForm(casa)} />
+            <img src={pencil} alt="" onClick={() => showForm(casa, "update")} />
             <div
               className="substraction-container"
               onClick={() => deleteRegister(casa)}
@@ -61,7 +65,7 @@ function CasaDiscografica() {
     <div className="container-crud">
       <div className="title-and-add">
         <p>Casas discograficas</p>
-        <button className="add-register">
+        <button className="add-register" onClick={()=>showForm([], "add")}>
           <img src="https://img.icons8.com/material/24/FFFFFF/xbox-cross.png" />
           <p>Agregar nuevo</p>
         </button>
@@ -78,8 +82,8 @@ function CasaDiscografica() {
       </div>
 
       {modalDelete ? (
-        <ModalComponent
-          setModal={setModal}
+        <ModalDelete
+          setModal={setModalDelete}
           array={lastCasa}
           group={"servicio"}
           type={"casa"}
@@ -87,11 +91,12 @@ function CasaDiscografica() {
       ) : null}
 
       {modalForms ? (
-        <ModalComponent
-          setModal={setModal}
+        <ModalForms
+          setModal={setModalForms}
           array={lastCasa}
           group={"servicio"}
           type={"casa"}
+          typeAction = {typeAction}
         />
       ) : null}
     </div>
